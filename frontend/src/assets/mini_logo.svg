@@ -1,0 +1,12 @@
+<svg width="150" height="80" viewBox="0 0 150 80" xmlns="http://www.w3.org/2000/svg">
+    <!-- Outer yellow circle -->
+    <circle cx="30" cy="30" r="20" fill="#FFD700" />
+
+    <!-- Inner white circle -->
+    <circle cx="30" cy="30" r="10" fill="#FFFFFF" />
+
+    <!-- Dashed tracking line -->
+    <rect x="55" y="27" width="12" height="6" rx="3" fill="#FFD700" />
+    <rect x="72" y="27" width="12" height="6" rx="3" fill="#FFD700" />
+    <rect x="89" y="27" width="12" height="6" rx="3" fill="#FFD700" />
+</svg>

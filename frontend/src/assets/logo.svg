@@ -1,0 +1,15 @@
+<svg width="180" height="50" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
+    <!-- Outer golden circle -->
+    <circle cx="20" cy="25" r="10" fill="#FFD700" />
+
+    <!-- Inner white dot -->
+    <circle cx="20" cy="25" r="4" fill="#FFFFFF" />
+
+    <!-- Dotted tracking path -->
+    <path d="M30 25 H50" stroke="#FFD700" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="4" />
+
+    <!-- Trackify text -->
+    <text x="60" y="32" font-family="Segoe UI, sans-serif" font-size="24" fill="#FFD700" font-weight="bold">
+        Trackify
+    </text>
+</svg>

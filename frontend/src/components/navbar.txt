@@ -1,0 +1,2 @@
+<button className='h-[40%] w-[90%] bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 border-black text-2xl'>Discount</button>
+                <button className='h-[40%] w-[90%] bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 border-black text-2xl'>Bill</button>

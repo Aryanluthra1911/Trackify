@@ -1,16 +1,40 @@
-import React, { use, useState } from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Details from './Details'
 import Input_block from './Input_block'
 import Selected_input from './Selected_input'
+import axios from 'axios'
 
-const GST_details = ({finalcost ,setgstbill,element,weight,labour}) => {
-    const purity_options = ["","18k (75%)","22k (91.6%)","24k (100%)"]
+const GST_details = ({finalcost ,setgstbill,element,weight}) => {
+    const purity_options = ["14k","18k","22k","24k"]
     const gst = finalcost *0.015
     const rate = Math.round(finalcost/weight)
     const totalcost = finalcost + 2*gst
     const [billno, setbillno]=useState("");
     const [purity,setpurity] = useState('');
     const [mop,setmop]=useState('')
+    const navigate =useNavigate()
+    const now = new Date();
+    const formated_date = now.toLocaleDateString('en-GB');
+    const addgstsales=async()=>{
+        const response=await axios.post('http://localhost:4444/dashboard/addgstsales',{
+            email:'1@gmail.com',
+            element:element,
+            bill_no:parseInt(billno),
+            purity:element==='silver'?'-':purity,
+            mode_of_payment:mop,
+            date:formated_date,
+            weight:weight,
+            rate:rate,
+            cost_exc_gst:finalcost,
+            cgst:gst,
+            sgst:gst,
+            total:totalcost
+        })
+        console.log(response.data);
+        
+    }
+
     return (
         <div className='h-full w-[93%] flex'>
             <div className='flex flex-col items-center justify-around w-[51%] h-160 m-3 bg-[#202020] shadow-[#f9fafb] border-amber-50 rounded-2xl space-y-9'>
@@ -26,7 +50,7 @@ const GST_details = ({finalcost ,setgstbill,element,weight,labour}) => {
                     }
                     
                     <Details label = 'Mode Of Payment : 'output={mop}/>
-                    <Details label = 'Date : '/>
+                    <Details label = 'Date : ' output={formated_date}/>
                     <Details label = 'Weight : 'output={weight}/>
                     <Details label = 'Rate : ' output={rate}/>
                     <Details label = 'Cost (Without GST) : ' output={finalcost}/>
@@ -34,7 +58,16 @@ const GST_details = ({finalcost ,setgstbill,element,weight,labour}) => {
                     <Details label = 'CGST : 'output={gst}/>
                     <Details label = 'Total Cost : ' output={totalcost}/>
                 </div>
-                <button className={` flex items-center justify-center h-[8%] w-[45%] bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 hover:bg-green-400 border-black text-2xl`}> Add Bill</button>
+                <button onClick={async()=>{
+                    try{
+                        await addgstsales()
+                        navigate("/gstsales")
+                    }
+                    catch (err) {
+                        console.error("Error adding sale:", err);
+                        alert("Failed to add sale");
+                    }
+                }} className={` flex items-center justify-center h-[8%] w-[45%] bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 hover:bg-green-400 border-black text-2xl`}> Add Bill</button>
             </div>
             <div className='w-[48%] h-160 ml-1 m-3 bg-[#202020] rounded-2xl flex flex-col space-y-10 items-center'>
                 <h1 className='h-[8%] w-full text-4xl flex justify-center items-center text-[#ffff] font-bold'>Bill Details</h1>

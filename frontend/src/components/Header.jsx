@@ -16,8 +16,10 @@ const Header = () => {
             </div>
             <div className='right h-full w-[30%] flex items-center justify-end mr-5'>
                 
-                <div className='mail bg-gray-500 w-10 mr-5 h-10 flex items-center justify-center rounded-3xl'> A</div>
-                <img src={setting} alt="setting" className="w-8 h-8" />
+                
+                <img onClick={()=>{
+                    navigate('/setting')
+                }} src={setting} alt="setting" className="w-8 h-8 hover:w-9 hover:h-9" />
             </div>
         </div>
     )

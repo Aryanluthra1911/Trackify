@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react'
 import Details from './Details'
 import Input_block from './Input_block'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weightinput,setweightinput,rateinput,setrateinput,labourinput,setlabourinput}) => {
     const weight = parseFloat(weightinput);
@@ -24,8 +26,31 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
         const disc = parseFloat(discount);
         return !isNaN(disc) ? totalcost - disc : totalcost;
     }, [discount, totalcost]);
-    
-    
+    const navigate =useNavigate()
+    const addsales = async()=>{
+        const now = new Date();
+        const formated_date = now.toLocaleDateString('en-GB');
+        const formated_time = now.toLocaleTimeString('en-GB');
+        const response =await axios.post('http://localhost:4444/dashboard/addsales',{
+            email:'11@gmail.com',
+            product:product,
+            weight:weight,
+            rate:rate,
+            labourcost:labourcost,
+            total:discountedCost,
+            date:formated_date,
+            time:formated_time
+        })
+        // alert("Sale added successfully!");
+        
+
+        setproduct('')
+        setdiscount('')
+        setlabourinput('')
+        setrateinput('')
+        setweightinput('')
+    }
+
 
     const [clicked,setclicked] =  useState(false);
     const buttonclicked=()=>{
@@ -34,7 +59,7 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
             setclicked(false)
         }, 200);
     }
-    
+
     return (
         <div className='w-[40%] h-160 ml-1 m-3 bg-[#202020] rounded-2xl flex flex-col space-y-3 items-center'>
             <h1 className='h-[8%] w-full text-4xl flex justify-center items-center text-[#ffff] font-bold' >Rough Estimate</h1>
@@ -62,7 +87,17 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
                     setweightinput('')
                 }}
                 className={`h-full w-[45%] ${clicked?'bg-red-500 border-2 border-amber-50': ''} hover:bg-red-500 bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 border-black text-2xl`} >Clear Data</button>
-                <button className={`h-full w-[45%] bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 hover:bg-gray-500 border-black text-2xl`}>Add sales</button>
+                <button onClick={async()=>{
+                    try{
+                        await addsales()
+                        navigate('/sales')
+                        
+                    }
+                    catch (err) {
+                        console.error("Error adding sale:", err);
+                        alert("Failed to add sale");
+                    }
+                }} className={`h-full w-[45%] bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 hover:bg-gray-500 border-black text-2xl`}>Add sales</button>
             </div>
             <div className='h-[7%] w-[90%] flex justify-evenly items-center'>
                 <button onClick={(()=>{

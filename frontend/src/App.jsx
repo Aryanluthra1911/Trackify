@@ -6,6 +6,8 @@ import Sales from './pages/Sales'
 import GSTsales from './pages/GSTsales'
 import Custom_bill from './pages/Custom_bill'
 import Orders from './pages/Orders'
+import Login from './pages/Login'
+import Setting from './pages/Setting'
 
 
 const App = () => {
@@ -18,6 +20,8 @@ const App = () => {
         <Route path='/gstsales' element={<GSTsales/>}/>
         <Route path='/custombills' element={<Custom_bill/>}/>
         <Route path='/orders' element={<Orders/>}/>
+        <Route path='/login'element={<Login/>}/>
+        <Route path='/setting'element={<Setting/>}/>
       </Routes>
     </div>
   )

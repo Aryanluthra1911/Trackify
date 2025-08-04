@@ -3,7 +3,8 @@ import Navbar from '../components/Navbar'
 import Header from '../components/Header'
 import DataEntry from '../components/DataEntry'
 import DataDetails from '../components/DataDetails'
-import GST_details from '../components/gst_details'
+import GST_details from '../components/GST_details'
+
 
 
 

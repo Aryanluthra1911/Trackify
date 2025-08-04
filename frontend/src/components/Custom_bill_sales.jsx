@@ -1,13 +1,13 @@
 import React from 'react'
 import Heading from './Heading'
-import Details from './Details'
 
-const Custom_bill_sales = () => {
+
+const Custom_bill_sales = ({data}) => {
     return (
-        <div className='h-15 w-[97%] bg-[#262626] shadow-[#262626] shadow-m rounded-xl flex items-center justify-around hover:border-1 hover:border-white'>
-            <Details label={"Cost :"} output ={'1200'}/>
-            <Details label={"Quantity :"} output ={'3'}/>
-            <Details label={"Total Cost :"} output ={'3600'}/>
+        <div className='h-9 w-[97%] bg-[#262626] shadow-[#262626] shadow-m rounded-xl flex items-center justify-around hover:border-1 hover:border-white'>
+            <Heading label={`₹${data.cost}`}/>
+            <Heading label={`${data.quantity}`}/>
+            <Heading label={`₹${data.total}`}/>
         </div>
     )
 }

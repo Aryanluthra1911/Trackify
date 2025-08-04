@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Sales {
+  id          Int      @id @default(autoincrement()) // primary key
+  email       String
+  product     String
+  weight      Float
+  rate        Float
+  labour_cost Float
+  total       Float
+  date        String
+  time        String
+  @@map("sales")
+}
+
+model GstSales {
+  email           String
+  element         String
+  bill_no         Int @id
+  purity          String
+  mode_of_payment String
+  date            String
+  weight          Float
+  rate            Float
+  cost_exc_gst    Float    
+  cgst            Float
+  sgst            Float
+  total           Float
+  @@map("gst_sales") 
+}
+
+model CustomBill {
+  id       Int     @id @default(autoincrement())
+  email    String
+  cost     Float
+  quantity Int
+  total    Float    
+  @@map("custombills") 
+}
+
+model Orders {
+  id       Int      @id @default(autoincrement()) 
+  email    String
+  date     String 
+  ph_no    String   
+  address  String   
+  product  String   
+  purity   String   
+  weight   Float    
+  rate     Float    
+  deposit  Float    
+  total    Float    
+
+  @@map("orders")
+}

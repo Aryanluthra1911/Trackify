@@ -10,7 +10,7 @@ const Input_block = ({ label, value,onChange, onFocus,element}) => {
     return (
         <div className='flex items-center flex-row space-x-4'>
             <div className={`text-2xl  ${label==='Discount' ?  "text-gray-500": "text-[#ffff]"} `}>{label} : </div>
-            <input className={` w-45 bg-neutral-700 h-10 rounded-3xl pl-4 text-neutral-200 border-2 border-black hover:border-white`}
+            <input className={` w-45 bg-[#3a3d46] h-10 rounded-3xl pl-4 text-neutral-200 border-2 border-black hover:border-white`}
             type="text" 
             placeholder={placeholdertext}
             value={value}

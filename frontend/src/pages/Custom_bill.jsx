@@ -58,12 +58,12 @@ const Custom_bill = () => {
         }
     }
     return (
-        <div className='w-screen h-screen bg-neutral-800'>
+        <div className='w-screen h-screen bg-[#1a1a1a]'>
             <Header/>
             <div className='h-[90%] flex'>
                 <Navbar/>
                 <div className='h-full w-[93%] flex'>
-                    <div className='w-[40%] h-160 mr-1 m-3 bg-[#202020] rounded-2xl flex flex-col space-y-3 items-center justify-around shadow-[#f9fafb] border-amber-50'>
+                    <div className='w-[40%] h-160 mr-1 m-3 bg-gradient-to-b from-black to-[#0d0d0d] rounded-2xl flex flex-col space-y-3 items-center justify-around shadow-[#f9fafb] border-amber-50'>
                         <h1 className='h-[10%] w-full text-4xl flex justify-center items-center text-[#ffff] font-bold'>Custom Bill</h1>
                         <div className='h-[50%] w-[90%] space-y-3 flex flex-col'>
                             <Input_block onChange={(e)=>{
@@ -89,7 +89,7 @@ const Custom_bill = () => {
                         </div>
                         
                     </div>
-                    <div className='flex flex-col items-center w-[57%] h-160 m-3 bg-[#202020] shadow-[#f9fafb] border-amber-50 rounded-2xl space-y-8'>
+                    <div className='flex flex-col items-center w-[57%] h-160 m-3 bg-gradient-to-b from-black to-[#0d0d0d] shadow-[#f9fafb] border-amber-50 rounded-2xl space-y-8'>
                         <h1 className='h-[10%] w-full text-4xl flex justify-center items-center text-[#ffff] font-bold'>Bill Sales</h1>
                         <div className='h-[7%] w-[90%]  flex justify-between items-center'>
                             <Searchbar
@@ -99,10 +99,10 @@ const Custom_bill = () => {
                             />
                             <button onClick={()=>{
                                 deletebills()
-                            }} className={` flex items-center justify-center h-10 w-30 bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 hover:bg-red-600 border-black `}>Delete Sales</button>
+                            }} className={` flex items-center justify-center h-10 w-30 bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 hover:bg-red-600 border-black `}>Clear Sales</button>
                         </div>
                         <div className='w-[97%] overflow-y-auto scrollbar-thin scrollbar-track-neutral-800 scrollbar-thumb-neutral-600 space-y-3'>
-                            <div className='h-10 w-[97%] rounded-2xl bg-[#262626] flex justify-around items-center sticky top-0'>
+                            <div className='h-10 w-[97%] rounded-2xl bg-[#1a1a1a] flex justify-around items-center sticky top-0'>
                                 <Heading label={"Cost"}/>
                                 <Heading label={"Quantity"}/>
                                 <Heading label={"Total"}/>

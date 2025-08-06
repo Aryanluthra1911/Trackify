@@ -37,7 +37,7 @@ const GST_details = ({finalcost ,setgstbill,element,weight}) => {
 
     return (
         <div className='h-full w-[93%] flex'>
-            <div className='flex flex-col items-center justify-around w-[51%] h-160 m-3 bg-[#202020] shadow-[#f9fafb] border-amber-50 rounded-2xl space-y-9'>
+            <div className='flex flex-col items-center justify-around w-[51%] h-160 m-3 bg-gradient-to-b from-black to-[#0d0d0d] shadow-[#f9fafb] border-amber-50 rounded-2xl space-y-9'>
                 <h1 className='h-[10%] w-full text-4xl flex justify-center items-center text-[#ffff] font-bold'>GST Bill</h1>
                 <div className='h-[65%] w-[90%] space-y-3 flex flex-col justify-center'>
                     <Details label = "Element : " output={element}/>
@@ -69,7 +69,7 @@ const GST_details = ({finalcost ,setgstbill,element,weight}) => {
                     }
                 }} className={` flex items-center justify-center h-[8%] w-[45%] bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 hover:bg-green-400 border-black text-2xl`}> Add Bill</button>
             </div>
-            <div className='w-[48%] h-160 ml-1 m-3 bg-[#202020] rounded-2xl flex flex-col space-y-10 items-center'>
+            <div className='w-[48%] h-160 ml-1 m-3 bg-gradient-to-b from-black to-[#0d0d0d] rounded-2xl flex flex-col space-y-10 items-center'>
                 <h1 className='h-[8%] w-full text-4xl flex justify-center items-center text-[#ffff] font-bold'>Bill Details</h1>
                 <div className='h-[80%] w-[90%] flex flex-col space-y-10 justify-start ' >
                     <Input_block label = "Bill No. " value={billno}

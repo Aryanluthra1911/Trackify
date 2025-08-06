@@ -78,12 +78,12 @@ const Orders = () => {
         }
     }
     return (
-        <div className='w-screen h-screen bg-neutral-800'>
+        <div className='w-screen h-screen bg-[#1a1a1a]'>
             <Header/>
             <div className='h-[90%] flex'>
                 <Navbar/>
                 <div className='h-full w-[93%] flex'>
-                    <div className='w-[40%] h-160 mr-1 m-3 bg-[#202020] rounded-2xl flex flex-col space-y-3 items-center justify-around shadow-[#f9fafb] border-amber-50'>
+                    <div className='w-[40%] h-160 mr-1 m-3 bg-gradient-to-b from-black to-[#0d0d0d] rounded-2xl flex flex-col space-y-3 items-center justify-around shadow-[#f9fafb] border-amber-50'>
                         <h1 className='h-[10%] w-full text-4xl flex justify-center items-center text-[#ffff] font-bold'>Order Details</h1>
                         <div className='h-[70%] w-[90%] flex flex-col justify-around'>
                             <Selected_input label='Product' value={product} onChange={(e)=>{
@@ -109,7 +109,7 @@ const Orders = () => {
                             setaddress('')
                         }} className={` flex items-center justify-center h-[8%] w-[45%] bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 hover:bg-green-400 border-black text-2xl`}> Place Order</button>
                     </div>
-                    <div className='flex flex-col items-center w-[57%] h-160 m-3 bg-[#202020] shadow-[#f9fafb] border-amber-50 rounded-2xl space-y-8'>
+                    <div className='flex flex-col items-center w-[57%] h-160 m-3 bg-gradient-to-b from-black to-[#0d0d0d] shadow-[#f9fafb] border-amber-50 rounded-2xl space-y-8'>
                         <h1 className='h-[10%] w-full text-4xl flex justify-center items-center text-[#ffff] font-bold'>Orders</h1>
                         <div className='h-[7%] w-[90%]  flex justify-between items-center'>
                             <Searchbar search_input={search_input}
@@ -122,7 +122,7 @@ const Orders = () => {
                             className={` flex items-center justify-center h-10 w-50 bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 hover:bg-green-500 border-black `}>Order Completed</button>
                         </div>
                         <div className='  h-[70%] w-[90%] overflow-auto  space-y-3'>
-                            <div className='h-10 w-[97%] bg-[#262626] shadow-[#262626] shadow-m rounded-xl flex items-center justify-around hover:border-1 hover:border-white sticky top-0'>
+                            <div className='h-10 w-[97%] bg-[#1a1a1a] shadow-[#262626] shadow-m rounded-xl flex items-center justify-around hover:border-1 hover:border-white sticky top-0'>
                                 <Heading label={"Date"}/>
                                 <Heading label={"Ph. no."}/>
                                 <Heading label={"Address"}/>

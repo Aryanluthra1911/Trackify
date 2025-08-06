@@ -13,7 +13,7 @@ const Navbar = () => {
     const location = useLocation();
     const currentPath = location.pathname;
     return (
-        <div className='navbar w-[7%] h-full bg-[#202020] flex flex-col items-center justify-center shadow-lg space-y-4'>
+        <div className='navbar w-[7%] h-full bg-gradient-to-b from-black to-[#0d0d0d] flex flex-col items-center justify-center shadow-lg space-y-4'>
             <div onClick={()=>{
                 navigate("/dashboard")
             }} className={` text-amber-50 h-[12%] hover:bg-[#3A3D46] w-full flex flex-col items-center justify-center

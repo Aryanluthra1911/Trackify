@@ -4,19 +4,26 @@ import Order_componet from './Order_componet';
 
 const Order_detail_block = ({data,setselected,selected}) => {
     const [active,setactive] = useState(false);
+    const [active2,setactive2] = useState(false)
     return (
         <div onClick={()=>{
-            setselected(data.id)
-            console.log(data.id)
+            setactive2(!active2)
+            
+            if(active2){
+                setselected(data.id)
+            }
+            else{
+                setselected('')
+            }
         }}
-        className={`h-auto ${selected === data.id?'border-2 border-sky-400' : 'hover:border-1 hover:border-white'} min-h-10 w-[97%] bg-[#262626] shadow-[#262626] shadow-m rounded-2xl space-y-3`}>
+        className={`h-auto ${selected === data.id ?'border-2 border-sky-400' : 'hover:border-1 hover:border-white'} flex flex-col justify-center items-center min-h-10 w-[97%]  bg-[#1a1a1a] shadow-[#262626] shadow-m rounded-2xl space-y-3`}>
             <div className='h-full w-full rounded-2xl flex items-center justify-around '>
                 <Heading label= {`${data.date}`}/>
                 <Heading label= {`${data.ph_no}`}/>
                 <Heading label= {`${data.address}`}/>
                 <button onClick={()=>{
                     setactive(!active)
-                }} className='flex items-center bg-[#262626] justify-center h-[80%] w-[8%]  rounded-4xl text-[#ffff]  hover:bg-slate-700 text-2xl'>
+                }} className='flex items-center bg-[#1a1a1a] justify-center h-[80%] w-[8%]  rounded-4xl text-[#ffff]  hover:bg-slate-700 text-2xl'>
                     {active ? 
                     <>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" 

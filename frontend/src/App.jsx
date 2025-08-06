@@ -8,6 +8,7 @@ import Custom_bill from './pages/Custom_bill'
 import Orders from './pages/Orders'
 import Login from './pages/Login'
 import Setting from './pages/Setting'
+import Signup from './pages/Signup'
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         <Route path='/orders' element={<Orders/>}/>
         <Route path='/login'element={<Login/>}/>
         <Route path='/setting'element={<Setting/>}/>
+        <Route path='/signup' element={<Signup/>}/>
       </Routes>
     </div>
   )

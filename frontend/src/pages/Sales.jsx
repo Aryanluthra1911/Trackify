@@ -61,13 +61,13 @@ const Sales = () => {
         }
     }
     return (
-        <div className='w-screen h-screen bg-neutral-800'>
+        <div className='w-screen h-screen bg-[#1a1a1a]'>
             <Header/>
             <div className='h-[90%] flex'>
                 <Navbar/>
                 <div className='h-full w-[93%] flex items-center justify-center'>
-                    <div className='h-[97%] w-[98%] space-y-3 bg-[#202020] border-2 border-black rounded-2xl flex justify-center items-center flex-col '>
-                        <div className=' h-[10%] w-[97%] flex items-center justify-between border-b-5 border-[#2b2b2b] rounded-xl'>
+                    <div className='h-[97%] w-[98%] space-y-3 bg-gradient-to-b from-black to-[#0d0d0d] border-2 border-black rounded-2xl flex justify-center items-center flex-col '>
+                        <div className=' h-[10%] w-[97%] flex items-center justify-between border-b-5 border-[#1a1a1a] rounded-xl'>
                             <div className='text-4xl text-[#ffff] flex items-center justify-center w-[10%]'>
                                 Sales
                             </div>
@@ -85,7 +85,7 @@ const Sales = () => {
                             </div>
                         </div>
                         <div className='h-[82%] w-[97%] overflow-y-auto scrollbar-thin scrollbar-track-neutral-800 scrollbar-thumb-neutral-600 space-y-3'>
-                            <div className='h-10 w-[97%] rounded-2xl bg-[#262626] flex justify-around items-center sticky top-0'>
+                            <div className='h-10 w-[97%] rounded-2xl bg-[#1a1a1a] flex justify-around items-center sticky top-0'>
                                 <Heading label={"Product"}/>
                                 <Heading label={"weight"}/>
                                 <Heading label={"rate"}/>

@@ -17,7 +17,7 @@ const Header = () => {
                 <img src={logo} alt="website logo"/>
             </div>
             <div className='right h-full w-[30%] flex items-center justify-end mr-5'>
-                {currentPath === '/login' || currentPath === '/setting'?
+                {currentPath === '/login'|| currentPath === '/signup' || currentPath === '/setting'?
                 <>
                 
                 </>:

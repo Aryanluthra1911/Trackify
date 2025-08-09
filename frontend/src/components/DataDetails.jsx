@@ -27,12 +27,23 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
         return !isNaN(disc) ? totalcost - disc : totalcost;
     }, [discount, totalcost]);
     const navigate =useNavigate()
-    const addsales = async()=>{
+
+    const getemail =async()=>{
+        try{
+            const response = await axios.get('http://localhost:4444/login/getemail',{ withCredentials: true })
+            const userEmail = response.data.email;
+            return userEmail
+        }catch(err){
+            console.error('email error in frontend',err)
+        }
+    }
+    
+    const addsales = async(userEmail)=>{
         const now = new Date();
         const formated_date = now.toLocaleDateString('en-GB');
         const formated_time = now.toLocaleTimeString('en-GB');
-        const response =await axios.post('http://localhost:4444/dashboard/addsales',{
-            email:'11@gmail.com',
+        await axios.post('http://localhost:4444/dashboard/addsales',{
+            email:userEmail,
             product:product,
             weight:weight,
             rate:rate,
@@ -42,15 +53,14 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
             time:formated_time
         },{withCredentials:true})
         // alert("Sale added successfully!");
-        
-
         setproduct('')
         setdiscount('')
         setlabourinput('')
         setrateinput('')
         setweightinput('')
     }
-
+    
+    
 
     const [clicked,setclicked] =  useState(false);
     const buttonclicked=()=>{
@@ -89,9 +99,13 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
                 className={`h-full w-[45%] ${clicked?'bg-red-500 border-2 border-amber-50': ''} hover:bg-red-500 bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 border-black text-2xl`} >Clear Data</button>
                 <button onClick={async()=>{
                     try{
-                        await addsales()
-                        navigate('/sales')
-                        
+                        const userEmail = await getemail();
+                        if (!userEmail) {
+                            alert("Email not found!");
+                        return;
+                        }
+                        await addsales(userEmail);
+                        navigate('/sales');
                     }
                     catch (err) {
                         console.error("Error adding sale:", err);

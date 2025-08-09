@@ -16,9 +16,20 @@ const GST_details = ({finalcost ,setgstbill,element,weight}) => {
     const navigate =useNavigate()
     const now = new Date();
     const formated_date = now.toLocaleDateString('en-GB');
-    const addgstsales=async()=>{
-        const response=await axios.post('http://localhost:4444/dashboard/addgstsales',{
-            email:'1@gmail.com',
+
+    const getemail =async()=>{
+        try{
+            const response = await axios.get('http://localhost:4444/login/getemail',{ withCredentials: true })
+            const userEmail = response.data.email;
+            return userEmail
+        }catch(err){
+            console.error('email error in frontend',err)
+        }
+    }
+
+    const addgstsales=async(userEmail)=>{
+        await axios.post('http://localhost:4444/dashboard/addgstsales',{
+            email:userEmail,
             element:element,
             bill_no:parseInt(billno),
             purity:element==='silver'?'-':purity,
@@ -31,9 +42,8 @@ const GST_details = ({finalcost ,setgstbill,element,weight}) => {
             sgst:gst,
             total:totalcost
         },{
-            withCredentials: true  // 👈 THIS is required for cookies to be sent
+            withCredentials: true 
         })
-        console.log(response.data);
         
     }
 
@@ -62,8 +72,13 @@ const GST_details = ({finalcost ,setgstbill,element,weight}) => {
                 </div>
                 <button onClick={async()=>{
                     try{
-                        await addgstsales()
-                        navigate("/gstsales")
+                        const userEmail = await getemail();
+                        if (!userEmail) {
+                            alert("Email not found!");
+                        return;
+                        }
+                        await addgstsales(userEmail);
+                        navigate('/gstsales');
                     }
                     catch (err) {
                         console.error("Error adding sale:", err);

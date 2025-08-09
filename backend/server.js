@@ -9,6 +9,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import LoginRoute from './routes/LoginRoute.js'
 import SignupRoute from './routes/SignupRoute.js'
+import SettingsRoute from './routes/SettingsRoute.js'
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use('/custombill',custombillsRoute)
 app.use('/orders',ordersRoute)
 app.use('/login',LoginRoute)
 app.use('/signup',SignupRoute)
+app.use('/setting',SettingsRoute)
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}`);

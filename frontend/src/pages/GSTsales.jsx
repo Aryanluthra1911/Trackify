@@ -13,7 +13,7 @@ const GSTsales = () => {
     const [search_input,setsearch_input] = useState('')
     const [gstsales,setgstsales]=useState([])
     const displaygstsales = async()=>{
-        const response = await axios.get('http://localhost:4444/gstsales')
+        const response = await axios.get('http://localhost:4444/gstsales',{ withCredentials: true })
         setgstsales(response.data);
     }
     useEffect(() => {
@@ -21,7 +21,7 @@ const GSTsales = () => {
     }, [])
     const cleargstsales = async()=>{
         try{
-            await axios.get("http://localhost:4444/gstsales/deletegstsales")
+            await axios.get("http://localhost:4444/gstsales/deletegstsales",{ withCredentials: true })
             await displaygstsales()
         }
         catch{
@@ -35,7 +35,7 @@ const GSTsales = () => {
             return;
         }
         try{
-            const response = await axios.get(`http://localhost:4444/gstsales/billno/${parseInt(search_input)}`)
+            const response = await axios.get(`http://localhost:4444/gstsales/billno/${parseInt(search_input)}`,{ withCredentials: true })
             setgstsales(response.data)
         }
         catch(err){
@@ -51,7 +51,7 @@ const GSTsales = () => {
             return;
         }
         try{
-            await axios.get(`http://localhost:4444/gstsales/deletebybillno/${parseInt(selected)}`)
+            await axios.get(`http://localhost:4444/gstsales/deletebybillno/${parseInt(selected)}`,{ withCredentials: true })
             await displaygstsales()
         }
         catch(err){

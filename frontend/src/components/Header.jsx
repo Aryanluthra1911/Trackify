@@ -13,11 +13,21 @@ const Header = () => {
     const currentPath = location.pathname;
     return (
         <div className=' bg-gradient-to-b from-black to-[#0d0d0d] h-[10%] w-[100%] flex shadow-lg'>
-            <div onClick={movetodashboard} className='left h-full w-[70%] flex '>
+            <div onClick={()=>{
+                currentPath === '/login'||
+                currentPath === '/signup' ||
+                currentPath==='/home'
+                ? navigate('/'):
+                movetodashboard}} 
+                className='left h-full w-[70%] flex '>
                 <img src={logo} alt="website logo"/>
             </div>
             <div className='right h-full w-[30%] flex items-center justify-end mr-5'>
-                {currentPath === '/login'|| currentPath === '/signup' || currentPath === '/setting'?
+                {currentPath === '/login'||
+                currentPath === '/signup' || 
+                currentPath === '/setting'||
+                currentPath === '/' 
+                ?
                 <>
                 
                 </>:

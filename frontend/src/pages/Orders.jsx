@@ -24,10 +24,19 @@ const Orders = () => {
     const formated_date = now.toLocaleDateString('en-GB');
     const [search_input,setsearch_input] = useState("")
     
+    const getemail =async()=>{
+        try{
+            const response = await axios.get('http://localhost:4444/login/getemail',{ withCredentials: true })
+            const userEmail = response.data.email;
+            return userEmail
+        }catch(err){
+            console.error('email error in frontend',err)
+        }
+    }
 
-    const addorder =async()=>{
+    const addorder =async(userEmail)=>{
         await axios.post('http://localhost:4444/orders/addorder',{
-            email:'1@gmail.com',
+            email:userEmail,
             date: formated_date,
             ph_no:ph_no,
             address:address,
@@ -37,12 +46,12 @@ const Orders = () => {
             rate:rate,
             deposit:deposit,
             total:total,
-        })
+        },{ withCredentials: true })
         displayorders()
         
     }
     const displayorders = async()=>{
-        const response = await axios.get('http://localhost:4444/orders')
+        const response = await axios.get('http://localhost:4444/orders',{ withCredentials: true })
         setorders(response.data)
     }
     useEffect(()=>{
@@ -54,7 +63,7 @@ const Orders = () => {
             return;
         }
         try{
-            const response = await axios.get(`http://localhost:4444/orders/phoneno/${parseFloat(search_input)}`)
+            const response = await axios.get(`http://localhost:4444/orders/phoneno/${parseFloat(search_input)}`,{ withCredentials: true })
             setorders(response.data)
         }
         catch(err){
@@ -69,7 +78,7 @@ const Orders = () => {
             return;
         }
         try{
-            await axios.get(`http://localhost:4444/orders/deleteorder/${parseInt(selected)}`)
+            await axios.get(`http://localhost:4444/orders/deleteorder/${parseInt(selected)}`,{ withCredentials: true })
             await displayorders()
         }
         catch(err){
@@ -100,13 +109,25 @@ const Orders = () => {
                             <Input_block label="Address" value={address} onChange={(e)=>setaddress(e.target.value)}/>
                         </div>
                         <button onClick={async()=>{
-                            await addorder()
-                            settotal('')
-                            setweight('')
-                            setrate('')
-                            setdeposit('')
-                            setph_no('')
-                            setaddress('')
+                            try{
+                                const userEmail = await getemail();
+                                if (!userEmail) {
+                                    alert("Email not found!");
+                                    return;
+                                }
+                                await addorder(userEmail)
+                                settotal('')
+                                setweight('')
+                                setrate('')
+                                setdeposit('')
+                                setph_no('')
+                                setaddress('')
+                            }
+                            catch (err) {
+                                console.error("Error adding sale:", err);
+                                alert("Failed to add sale");
+                            }
+                            
                         }} className={` flex items-center justify-center h-[8%] w-[45%] bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 hover:bg-green-400 border-black text-2xl`}> Place Order</button>
                     </div>
                     <div className='flex flex-col items-center w-[57%] h-160 m-3 bg-gradient-to-b from-black to-[#0d0d0d] shadow-[#f9fafb] border-amber-50 rounded-2xl space-y-8'>

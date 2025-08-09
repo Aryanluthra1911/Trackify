@@ -3,9 +3,12 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 const { TokenExpiredError } = jwt;
-
+import dotenv from "dotenv";
+dotenv.config();
 const prisma = new PrismaClient();
-const JWT_SECRET_KEY = 'THE GREAT NATIONAL JEWELLERS';
+
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+
 
 export const authenticateToken = (req, res, next) => {
     const token = req.cookies.token;
@@ -81,3 +84,23 @@ export const Login = async (req, res) => {
         res.status(500).json({ err: "Login failed" });
     }
 };
+
+export const GetEmail = async(req,res)=>{
+    const token = req.cookies.token;  // Cookie se token uthaya
+    if (!token) {
+        return res.status(401).json({ message: "No token found" });
+    }
+    try{
+        const decoded = jwt.verify(token, JWT_SECRET_KEY); 
+        const email = decoded.email; 
+        res.json({ email });
+    }
+    catch(error){
+        console.error("emial error:", error);
+        res.status(500).json({ error: "failed to send email" });
+    }
+}
+export const Logout = async(req,res)=>{
+    res.clearCookie("token", { httpOnly: true, sameSite: "strict" });
+    return res.json({ message: "Logged out successfully" });
+}

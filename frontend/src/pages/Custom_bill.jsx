@@ -13,25 +13,34 @@ const Custom_bill = () => {
     const [counter,setcounter] = useState(0)
     const [cost,setcost]=useState("")
     const [search_input,setsearch_input]=useState('')
-    const addcustombill = async()=>{
+    const getemail =async()=>{
+        try{
+            const response = await axios.get('http://localhost:4444/login/getemail',{ withCredentials: true })
+            const userEmail = response.data.email;
+            return userEmail
+        }catch(err){
+            console.error('email error in frontend',err)
+        }
+    }
+    const addcustombill = async(userEmail)=>{
         await axios.post('http://localhost:4444/custombill/addbill',{
-            email:'10@gmail.com',
+            email:userEmail,
             cost:parseInt(cost),
             quantity:counter,
-        })
+        },{ withCredentials: true })
         displaycustombill()
         setcost('')
         setcounter(0)
     }
     const displaycustombill = async()=>{
-        const response = await axios.get('http://localhost:4444/custombill')
+        const response = await axios.get('http://localhost:4444/custombill',{ withCredentials: true })
         setcustombill(response.data)
     }
     
     
     const deletebills = async()=>{
         try{
-            await axios.get('http://localhost:4444/custombill/deletebill')
+            await axios.get('http://localhost:4444/custombill/deletebill',{ withCredentials: true })
             await displaycustombill()
         }
         catch(err){
@@ -49,7 +58,7 @@ const Custom_bill = () => {
             return;
         }
         try{
-            const response = await axios.get(`http://localhost:4444/custombill/total/${parseFloat(search_input)}`)
+            const response = await axios.get(`http://localhost:4444/custombill/total/${parseFloat(search_input)}`,{ withCredentials: true })
             setcustombill(response.data)
         }
         catch(err){
@@ -79,7 +88,13 @@ const Custom_bill = () => {
                             }} className={` flex items-center justify-center h-[30%] w-[45%] bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 hover:bg-red-600 border-black  text-2xl`}> Clear Data</button>
                             <button onClick={async()=>{
                                 try{
-                                    await addcustombill()
+                                    const userEmail = await getemail();
+                                    if (!userEmail) {
+                                        alert("Email not found!");
+                                    return;
+                                    }           
+                                    await addcustombill(userEmail);
+                                    
                                 }
                                 catch (err) {
                                     console.error("Error adding sale:", err);

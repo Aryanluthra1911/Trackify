@@ -16,6 +16,8 @@ const Dashboard = () => {
     const [product,setproduct] = useState('')
     const [finalcost, setfinalcost] = useState(0)
     const [gstbill,setgstbill] = useState(false)
+    
+
     return (
         <div className='w-screen h-screen bg-[#1a1a1a] text-white'>
             <Header/>

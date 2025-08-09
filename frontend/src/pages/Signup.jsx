@@ -2,11 +2,36 @@ import React from 'react'
 import Header from '../components/Header'
 import { useLocation, useNavigate } from 'react-router-dom'
 import InputBox from '../components/InputBox'
+import axios from 'axios'
+import { useState } from 'react'
 
 const Signup = () => {
     const navigate =  useNavigate()
     const location = useLocation();
     const currentPath = location.pathname;
+    const [name,setname] = useState('')
+    const [email,setemail] = useState('')
+    const [password,setpassword] = useState('')
+
+    const signup = async()=>{
+        try{
+            const response = await axios.post('http://localhost:4444/signup',{
+                name:name,
+                email:email,
+                password:password
+            },{
+                withCredentials:true
+            })
+            if (response.data.status) {
+                navigate('/dashboard');
+            } else {
+                alert("error");
+            }
+        }catch(err){
+            console.log("signup error:",err)
+        }
+    }
+
     return (
         <div className='w-screen h-screen bg-gradient-to-b from-black via-[#1a1a1a] to-[#0d0d0d] text-white'>
             <Header/>
@@ -19,12 +44,14 @@ const Signup = () => {
                         <button className={`  h-[90%] w-[47%] rounded-2xl bg-gradient-to-b from-black via-[#1a1a1a] to-[#0d0d0d] text-gray-300 border-sky-400 border-2 text-2xl `} >Signup</button>
                     </div>
                     <div  className='h-[60%] w-[95%]  flex flex-col justify-evenly'>
-                        <InputBox label = "Name" placeholdertext= 'Username'/>
-                        <InputBox label = "Email" placeholdertext= 'Email Address'/>
-                        <InputBox label = "Password" placeholdertext= 'Password'/>
+                        <InputBox label = "Name" placeholdertext= 'Username' set={setname}/>
+                        <InputBox label = "Email" placeholdertext= 'Email Address' set={setemail}/>
+                        <InputBox label = "Password" placeholdertext= 'Password' set={setpassword}/>
                     </div>
                     <div className='h-[20%] w-[95%] flex items-center justify-center'>
-                        <button className='h-[70%] w-[80%] bg-gradient-to-r from-cyan-500 to-blue-600 hover:to-blue-800 text-whitehover:from-cyan-600 rounded-2xl text-3xl '>
+                        <button onClick={()=>{
+                            signup()
+                        }} className='h-[70%] w-[80%] bg-gradient-to-r from-cyan-500 to-blue-600 hover:to-blue-800 text-whitehover:from-cyan-600 rounded-2xl text-3xl '>
                             {currentPath === '/signup'? 
                             <>Signup</>:
                             <></>}

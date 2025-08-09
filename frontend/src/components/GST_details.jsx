@@ -30,6 +30,8 @@ const GST_details = ({finalcost ,setgstbill,element,weight}) => {
             cgst:gst,
             sgst:gst,
             total:totalcost
+        },{
+            withCredentials: true  // 👈 THIS is required for cookies to be sent
         })
         console.log(response.data);
         

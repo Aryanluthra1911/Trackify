@@ -2,11 +2,35 @@ import React from 'react'
 import Header from '../components/Header'
 import { useLocation, useNavigate } from 'react-router-dom'
 import InputBox from '../components/InputBox'
+import { useState } from 'react'
+import axios from 'axios'
 
 const Login = () => {
     const navigate = useNavigate()
     const location = useLocation();
     const currentPath = location.pathname;
+    const [email,setemail] = useState('')
+    const [password,setpassword] = useState('')
+
+    const login = async()=>{
+        try{
+            const response = await axios.post('http://localhost:4444/login',{
+                email:email,
+                password:password
+            },{
+                withCredentials: true // 👈 VERY IMPORTANT
+            })
+            
+            if (response.data.status) {
+                navigate('/dashboard');
+            } else {
+                alert("error");
+            }
+        }
+        catch(err){
+            console.log("login error:",err)
+        }
+    }
     return (
         <div className='w-screen h-screen bg-gradient-to-b from-black via-[#1a1a1a] to-[#0d0d0d] text-white'>
             <Header/>
@@ -19,11 +43,13 @@ const Login = () => {
                         }}className={`  h-[90%] w-[47%]  text-gray-300 text-2xl `} >Signup</button>
                     </div>
                     <div  className='h-[60%] w-[95%] flex flex-col justify-evenly'>
-                        <InputBox label = "Email" placeholdertext= 'Email Address'/>
-                        <InputBox label = "Password" placeholdertext= 'Password'/>
+                        <InputBox label = "Email" placeholdertext= 'Email Address' set = {setemail}/>
+                        <InputBox label = "Password" placeholdertext= 'Password' set = {setpassword}/>
                     </div>
                     <div className='h-[20%] w-[95%]  flex items-center justify-center'>
-                        <button className='h-[70%] w-[80%] bg-gradient-to-r from-cyan-500 to-blue-600 hover:to-blue-800 text-whitehover:from-cyan-600 rounded-2xl text-3xl '>
+                        <button onClick={()=>{
+                            login()
+                        }} className='h-[70%] w-[80%] bg-gradient-to-r from-cyan-500 to-blue-600 hover:to-blue-800 text-whitehover:from-cyan-600 rounded-2xl text-3xl '>
                             {currentPath === '/login'? 
                             <>Login</>:
                             <></>}

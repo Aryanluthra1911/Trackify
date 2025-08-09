@@ -40,7 +40,7 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
             total:discountedCost,
             date:formated_date,
             time:formated_time
-        })
+        },{withCredentials:true})
         // alert("Sale added successfully!");
         
 

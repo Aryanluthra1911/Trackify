@@ -66,3 +66,10 @@ model Orders {
 
   @@map("orders")
 }
+
+model Credentials {
+  name     String @unique
+  email    String @id
+  password String
+  @@map("credentials")
+}

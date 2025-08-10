@@ -12,11 +12,11 @@ const Setting = () => {
         <div className='w-screen h-screen bg-gradient-to-b from-black via-[#1a1a1a] to-[#0d0d0d] text-white'>
             <Header/>
             <div className='h-[90%] flex'>
-                <div className=' h-[8%] w-[90%]  flex-row flex justify-around items-center'>
+                <div className=' h-[90%] w-[100%]  flex-row flex justify-center items-center'>
                     <button onClick={async()=>{
                         await logout();
                         navigate('/login')
-                    }} className='border-2 h-13 w-30'> logout</button>
+                    }} className='border-2 border-white rounded-2xl h-13 w-30 hover:bg-red-600 text-2xl'> Logout</button>
                 </div>
             </div>
         </div>

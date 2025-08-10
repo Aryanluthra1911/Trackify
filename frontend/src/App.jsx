@@ -9,20 +9,21 @@ import Orders from './pages/Orders'
 import Login from './pages/Login'
 import Setting from './pages/Setting'
 import Signup from './pages/Signup'
+import PrivateRoute from './components/PrivateRoute'
 
 
-const App = () => {
+const App  = () => {
   return (
     <div className='flex '>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
-        <Route path='/sales' element={<Sales/>}/>
-        <Route path='/gstsales' element={<GSTsales/>}/>
-        <Route path='/custombills' element={<Custom_bill/>}/>
-        <Route path='/orders' element={<Orders/>}/>
+        <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
+        <Route path='/sales' element={<PrivateRoute><Sales/></PrivateRoute>}/>
+        <Route path='/gstsales' element={<PrivateRoute><GSTsales/></PrivateRoute>}/>
+        <Route path='/custombills' element={<PrivateRoute><Custom_bill/></PrivateRoute>}/>
+        <Route path='/orders' element={<PrivateRoute><Orders/></PrivateRoute>}/>
         <Route path='/login'element={<Login/>}/>
-        <Route path='/setting'element={<Setting/>}/>
+        <Route path='/setting'element={<PrivateRoute><Setting/></PrivateRoute>}/>
         <Route path='/signup' element={<Signup/>}/>
       </Routes>
     </div>

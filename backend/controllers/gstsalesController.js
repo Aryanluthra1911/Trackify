@@ -1,9 +1,11 @@
 import { PrismaClient } from "@prisma/client";
+import { getEmailFromReq } from "../utils/GetEmailFromReq.js";
 const prisma = new PrismaClient()
 
 export const getAllGstSales = async(req,res)=>{
     try {
-        const gstsales = await prisma.gstSales.findMany({})
+        const userEmail = await getEmailFromReq(req)
+        const gstsales = await prisma.gstSales.findMany({where:{email:userEmail}})
         res.json(gstsales)
     }
     catch (err) {
@@ -13,10 +15,11 @@ export const getAllGstSales = async(req,res)=>{
 }
 export const getGstSalesForBillNo =  async(req,res)=>{
     try{
+        const userEmail = await getEmailFromReq(req)
         const billno = req.params.billno;
         console.log(billno);
         const gstsales = await prisma.gstSales.findMany({
-            where:{bill_no:billno},
+            where:{bill_no:billno,email:userEmail},
         })
         res.json(gstsales);
     }
@@ -27,7 +30,8 @@ export const getGstSalesForBillNo =  async(req,res)=>{
 
 export const DeleteAllGstSales = async(req,res)=>{
     try{
-        await prisma.gstSales.deleteMany({})
+        const userEmail = await getEmailFromReq(req)
+        await prisma.gstSales.deleteMany({where:{email:userEmail}})
         res.json("data deleted")
     }
     catch{
@@ -37,10 +41,11 @@ export const DeleteAllGstSales = async(req,res)=>{
 }
 export const DeleteGstSaleByBillNo =async(req,res)=>{
     try{
+        const userEmail = await getEmailFromReq(req)
         const bill_no = parseInt(req.params.bill_no)
         console.log("Delete route hit:", req.params.bill_no)
         await prisma.gstSales.delete({
-            where:{bill_no:bill_no},
+            where:{bill_no:bill_no,email:userEmail},
         })
         res.json('data deleted')
     }

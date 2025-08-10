@@ -1,9 +1,13 @@
 import { PrismaClient } from "@prisma/client";
+import { getEmailFromReq } from "../utils/GetEmailFromReq.js";
 const prisma = new PrismaClient();
+
+
 
 export const getAllCustombills = async (req,res)=>{
     try{
-        const custombills = await prisma.customBill.findMany({});
+        const userEmail = await getEmailFromReq(req)
+        const custombills = await prisma.customBill.findMany({where:{email:userEmail}});
         res.json(custombills)
     }
     catch{
@@ -12,9 +16,10 @@ export const getAllCustombills = async (req,res)=>{
 }
 export const FindBillsByTotal = async(req,res)=>{
     try{
+        const userEmail = await getEmailFromReq(req)
         const total = parseFloat(req.params.total)
         const custombills = await prisma.customBill.findMany({
-            where:{total:total}
+            where:{total:total,email:userEmail}
         })
         res.json(custombills)
     }
@@ -24,7 +29,8 @@ export const FindBillsByTotal = async(req,res)=>{
 }
 export const DeleteBills =async(req,res)=>{
     try{
-        await prisma.customBill.deleteMany({})
+        const userEmail = await getEmailFromReq(req)
+        await prisma.customBill.deleteMany({where:{email:userEmail}})
         res.json('data deleted')
     }
     catch{
@@ -33,12 +39,11 @@ export const DeleteBills =async(req,res)=>{
 }
 export const AddBill = async(req,res)=>{
     try{
-        const {email,cost,quantity}=req.body
-        
-        
+        const userEmail = await getEmailFromReq(req)
+        const {cost,quantity}=req.body
         const newbill = await prisma.customBill.create({
             data:{
-                email:email,
+                email:userEmail,
                 cost: parseFloat(cost),
                 quantity: parseInt(quantity),
                 total: parseFloat(cost) * parseInt(quantity),

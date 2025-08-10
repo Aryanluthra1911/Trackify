@@ -4,5 +4,4 @@ const router = express.Router();
 
 router.post('/',AddAccount)
 
-
 export default router

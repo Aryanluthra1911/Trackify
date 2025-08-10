@@ -1,9 +1,11 @@
 import { PrismaClient } from "@prisma/client";
+import { getEmailFromReq } from "../utils/GetEmailFromReq.js";
 const prisma = new PrismaClient;
 
 export const getAllOrders = async(req,res)=>{
     try{
-        const orders = await prisma.orders.findMany();
+        const userEmail = await getEmailFromReq(req)
+        const orders = await prisma.orders.findMany({where:{email:userEmail}});
         res.json(orders)
     }
     catch{
@@ -12,9 +14,10 @@ export const getAllOrders = async(req,res)=>{
 }
 export const GetOrderByPhoneNo = async(req,res)=>{
     try{
+        const userEmail = await getEmailFromReq(req)
         const phoneno = req.params.phoneno
         const orders = await prisma.orders.findMany({
-            where:{ph_no:phoneno}
+            where:{ph_no:phoneno,email:userEmail}
         })
         res.json(orders)
     }
@@ -24,9 +27,10 @@ export const GetOrderByPhoneNo = async(req,res)=>{
 }
 export const DeleteOrders = async(req,res)=>{
     try{
+        const userEmail = await getEmailFromReq(req)
         const id = parseInt(req.params.id)
         await prisma.orders.deleteMany({
-            where:{id:id}
+            where:{id:id,email:userEmail}
         })
         res.json('data deleted')
     }
@@ -36,10 +40,11 @@ export const DeleteOrders = async(req,res)=>{
 }
 export const AddOrders = async (req,res)=>{
     try{
-        const {email,date,ph_no,address,product,purity,weight,rate,deposit,total}=req.body;
+        const userEmail = await getEmailFromReq(req)
+        const {date,ph_no,address,product,purity,weight,rate,deposit,total}=req.body;
         const neworder = await prisma.orders.create({
             data:{
-                email:email,
+                email:userEmail,
                 date:date,
                 ph_no:ph_no,
                 address:address,

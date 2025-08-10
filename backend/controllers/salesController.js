@@ -1,9 +1,11 @@
 import { PrismaClient } from '@prisma/client';
+import { getEmailFromReq } from '../utils/GetEmailFromReq.js';
 const prisma = new PrismaClient();
 
 export const getAllSales = async (req, res) => {
     try {
-        const sales = await prisma.sales.findMany();
+        const userEmail = await getEmailFromReq(req)
+        const sales = await prisma.sales.findMany({where:{email:userEmail}});
         res.json(sales);
     }catch (error) {
         console.error(error);
@@ -13,9 +15,10 @@ export const getAllSales = async (req, res) => {
 
 export const getSalesForWeight =  async(req,res)=>{
     try{
+        const userEmail = await getEmailFromReq(req)
         const weight = parseFloat(req.params.weight);
         const sales = await prisma.sales.findMany({
-            where:{weight:weight},
+            where:{weight:weight,email:userEmail},
         })
         res.json(sales);
     }
@@ -26,7 +29,8 @@ export const getSalesForWeight =  async(req,res)=>{
 
 export const DeleteAllSales = async(req,res)=>{
     try{
-        await prisma.sales.deleteMany({})
+        const userEmail = await getEmailFromReq(req)
+        await prisma.sales.deleteMany({where:{email:userEmail}})
         res.json("data deleted")
     }
     catch{
@@ -36,10 +40,11 @@ export const DeleteAllSales = async(req,res)=>{
 
 export const DeleteSaleById =async(req,res)=>{
     try{
+        const userEmail = await getEmailFromReq(req)
         const id = parseInt(req.params.id)
         console.log("Delete route hit:", req.params.id)
         await prisma.sales.delete({
-            where:{id:id},
+            where:{id:id,email:userEmail},
         })
         res.json('data deleted')
     }

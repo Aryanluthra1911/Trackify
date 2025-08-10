@@ -17,19 +17,9 @@ const GST_details = ({finalcost ,setgstbill,element,weight}) => {
     const now = new Date();
     const formated_date = now.toLocaleDateString('en-GB');
 
-    const getemail =async()=>{
-        try{
-            const response = await axios.get('http://localhost:4444/login/getemail',{ withCredentials: true })
-            const userEmail = response.data.email;
-            return userEmail
-        }catch(err){
-            console.error('email error in frontend',err)
-        }
-    }
 
-    const addgstsales=async(userEmail)=>{
+    const addgstsales=async()=>{
         await axios.post('http://localhost:4444/dashboard/addgstsales',{
-            email:userEmail,
             element:element,
             bill_no:parseInt(billno),
             purity:element==='silver'?'-':purity,
@@ -72,12 +62,7 @@ const GST_details = ({finalcost ,setgstbill,element,weight}) => {
                 </div>
                 <button onClick={async()=>{
                     try{
-                        const userEmail = await getemail();
-                        if (!userEmail) {
-                            alert("Email not found!");
-                        return;
-                        }
-                        await addgstsales(userEmail);
+                        await addgstsales();
                         navigate('/gstsales');
                     }
                     catch (err) {

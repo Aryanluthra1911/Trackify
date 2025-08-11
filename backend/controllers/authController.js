@@ -41,7 +41,9 @@ export const AddAccount = async (req, res) => {
         
         res.cookie('token', token, {
             maxAge: 90 * 24 * 60 * 60 * 1000,
-            httpOnly: true
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none'
         });
 
         console.log("Generated JWT:", token);
@@ -74,7 +76,9 @@ export const Login = async (req, res) => {
         
         res.cookie('token', token, {
             maxAge: 90 * 24 * 60 * 60 * 1000,
-            httpOnly: true
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none'
         });
 
         console.log("Generated JWT:", token);

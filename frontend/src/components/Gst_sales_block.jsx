@@ -12,7 +12,7 @@ const Gst_sales_block = ({data,selected,setselected}) => {
             else{
                 setselected('')
             }
-        }} className={`w-[97%] ${selected === data.bill_no?'border-2 border-sky-400' : 'hover:border-1 hover:border-white'} h-9 bg-[#262626] shadow-[#262626] shadow-m rounded-xl flex items-center justify-around `}>
+        }} className={`w-[97%] ${selected === data.bill_no?'border-2 border-sky-400' : 'hover:border-1 hover:border-white'} h-[7%] bg-[#262626] shadow-[#262626] shadow-m rounded-xl flex items-center justify-around `}>
             <Heading  label={`${data.element}`}/>
             <Heading  label={`${data.bill_no}`}/>
             <Heading  label={`${data.purity}`}/>

@@ -62,7 +62,7 @@ const Custom_bill = () => {
             <div className='h-[90%] flex'>
                 <Navbar/>
                 <div className='h-full w-[93%] flex'>
-                    <div className='w-[40%] h-160 mr-1 m-3 bg-gradient-to-b from-black to-[#0d0d0d] rounded-2xl flex flex-col space-y-3 items-center justify-around shadow-[#f9fafb] border-amber-50'>
+                    <div className='w-[40%] h-[97%] mr-1 m-3 bg-gradient-to-b from-black to-[#0d0d0d] rounded-2xl flex flex-col space-y-3 items-center justify-around shadow-[#f9fafb] border-amber-50'>
                         <h1 className='h-[10%] w-full text-4xl flex justify-center items-center text-[#ffff] font-bold'>Custom Bill</h1>
                         <div className='h-[50%] w-[90%] space-y-3 flex flex-col'>
                             <Input_block onChange={(e)=>{
@@ -88,7 +88,7 @@ const Custom_bill = () => {
                         </div>
                         
                     </div>
-                    <div className='flex flex-col items-center w-[57%] h-160 m-3 bg-gradient-to-b from-black to-[#0d0d0d] shadow-[#f9fafb] border-amber-50 rounded-2xl space-y-8'>
+                    <div className='flex flex-col items-center w-[57%] h-[97%] m-3 bg-gradient-to-b from-black to-[#0d0d0d] shadow-[#f9fafb] border-amber-50 rounded-2xl space-y-8'>
                         <h1 className='h-[10%] w-full text-4xl flex justify-center items-center text-[#ffff] font-bold'>Bill Sales</h1>
                         <div className='h-[7%] w-[90%]  flex justify-between items-center'>
                             <Searchbar

@@ -60,9 +60,9 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
     }
 
     return (
-        <div className='w-[40%] h-160 ml-1 m-3 bg-gradient-to-b from-black  to-[#0d0d0d] rounded-2xl flex flex-col space-y-3 items-center'>
+        <div className='w-[40%] h-[97%] ml-1 m-3 bg-gradient-to-b from-black  to-[#0d0d0d] rounded-2xl flex flex-col space-y-3 items-center'>
             <h1 className='h-[8%] w-full text-4xl flex justify-center items-center text-[#ffff] font-bold' >Rough Estimate</h1>
-            <div className='h-[69%] w-[90%] space-y-3 flex flex-col justify-center'>
+            <div className='h-[69%] w-[90%] space-y-3 flex flex-col justify-around '>
                 <Details label='product : ' output={product}/>
                 <Details label='Weight : ' output={!isNaN(weight) ? weight : ''}/>
                 <Details label='Rate : 'output={!isNaN(rate) ? rate : ''}/>

@@ -11,7 +11,7 @@ export default function PrivateRoute({ children }) {
         const checkToken = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:4444/login/gettoken",
+                    `${import.meta.env.VITE_BACKEND_URL}/login/gettoken`,
                     { withCredentials: true }
                 );
                 const token = response.data?.token;

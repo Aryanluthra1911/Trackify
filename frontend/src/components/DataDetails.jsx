@@ -32,7 +32,7 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
         const now = new Date();
         const formated_date = now.toLocaleDateString('en-GB');
         const formated_time = now.toLocaleTimeString('en-GB');
-        await axios.post('http://localhost:4444/dashboard/addsales',{
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/dashboard/addsales`,{
             product:product,
             weight:weight,
             rate:rate,

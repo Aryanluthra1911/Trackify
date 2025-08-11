@@ -14,7 +14,7 @@ const Custom_bill = () => {
     const [cost,setcost]=useState("")
     const [search_input,setsearch_input]=useState('')
     const addcustombill = async()=>{
-        await axios.post('http://localhost:4444/custombill/addbill',{
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/custombill/addbill`,{
             cost:parseInt(cost),
             quantity:counter,
         },{ withCredentials: true })
@@ -23,14 +23,14 @@ const Custom_bill = () => {
         setcounter(0)
     }
     const displaycustombill = async()=>{
-        const response = await axios.get('http://localhost:4444/custombill',{ withCredentials: true })
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/custombill`,{ withCredentials: true })
         setcustombill(response.data)
     }
     
     
     const deletebills = async()=>{
         try{
-            await axios.get('http://localhost:4444/custombill/deletebill',{ withCredentials: true })
+            await axios.get(`${import.meta.env.VITE_BACKEND_URL}/custombill/deletebill`,{ withCredentials: true })
             await displaycustombill()
         }
         catch(err){
@@ -48,7 +48,7 @@ const Custom_bill = () => {
             return;
         }
         try{
-            const response = await axios.get(`http://localhost:4444/custombill/total/${parseFloat(search_input)}`,{ withCredentials: true })
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/custombill/total/${parseFloat(search_input)}`,{ withCredentials: true })
             setcustombill(response.data)
         }
         catch(err){

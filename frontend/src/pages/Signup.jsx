@@ -15,7 +15,7 @@ const Signup = () => {
     
     const signup = async () => {
         try {
-            const response = await axios.post('http://localhost:4444/signup', {
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/signup`, {
                 name: name,
                 email: email,
                 password: password

@@ -16,7 +16,7 @@ dotenv.config();
 const app = express();
 const port = 4444;
 app.use(cors({
-    origin: 'http://localhost:5173',  // your frontend URL
+    origin: ['https://trackify-eta.vercel.app','http://localhost:5173'],  // your frontend URL
     credentials: true
 }));
 app.use(express.json());

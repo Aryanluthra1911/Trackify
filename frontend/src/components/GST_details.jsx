@@ -19,7 +19,7 @@ const GST_details = ({finalcost ,setgstbill,element,weight}) => {
 
 
     const addgstsales=async()=>{
-        await axios.post('http://localhost:4444/dashboard/addgstsales',{
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/dashboard/addgstsales`,{
             element:element,
             bill_no:parseInt(billno),
             purity:element==='silver'?'-':purity,

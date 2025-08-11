@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Setting = () => {
     const logout = async()=>{
-        await axios.get('http://localhost:4444/setting/logout',{ withCredentials: true })
+        await axios.get(`${import.meta.env.VITE_BACKEND_URL}/setting/logout`,{ withCredentials: true })
     }
     const navigate = useNavigate()
     return (

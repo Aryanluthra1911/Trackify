@@ -25,7 +25,7 @@ const Orders = () => {
     const [search_input,setsearch_input] = useState("")
     
     const addorder =async()=>{
-        await axios.post('http://localhost:4444/orders/addorder',{
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/orders/addorder`,{
             date: formated_date,
             ph_no:ph_no,
             address:address,
@@ -40,7 +40,7 @@ const Orders = () => {
         
     }
     const displayorders = async()=>{
-        const response = await axios.get('http://localhost:4444/orders',{ withCredentials: true })
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/orders`,{ withCredentials: true })
         setorders(response.data)
     }
     useEffect(()=>{
@@ -52,7 +52,7 @@ const Orders = () => {
             return;
         }
         try{
-            const response = await axios.get(`http://localhost:4444/orders/phoneno/${parseFloat(search_input)}`,{ withCredentials: true })
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/orders/phoneno/${parseFloat(search_input)}`,{ withCredentials: true })
             setorders(response.data)
         }
         catch(err){
@@ -67,7 +67,7 @@ const Orders = () => {
             return;
         }
         try{
-            await axios.get(`http://localhost:4444/orders/deleteorder/${parseInt(selected)}`,{ withCredentials: true })
+            await axios.get(`${import.meta.env.VITE_BACKEND_URL}/orders/deleteorder/${parseInt(selected)}`,{ withCredentials: true })
             await displayorders()
         }
         catch(err){

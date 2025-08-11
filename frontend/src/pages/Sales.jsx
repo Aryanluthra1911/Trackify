@@ -13,7 +13,7 @@ const Sales = () => {
     const [search_input,setsearch_input] = useState("")
     const [sales,setsales]=useState([])
     const displaysales = async()=>{
-        const response = await axios.get('http://localhost:4444/sales',{ withCredentials: true })
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/sales`,{ withCredentials: true })
         setsales(response.data);
     }
     useEffect(() => {
@@ -21,7 +21,7 @@ const Sales = () => {
     }, [])
     const clearsales = async()=>{
         try{
-            await axios.get("http://localhost:4444/sales/deleteallsales",{ withCredentials: true })
+            await axios.get(`${import.meta.env.VITE_BACKEND_URL}/sales/deleteallsales`,{ withCredentials: true })
             await displaysales()
         }
         catch{
@@ -35,7 +35,7 @@ const Sales = () => {
             return;
         }
         try{
-            const response=await axios.get(`http://localhost:4444/sales/weight/${parseFloat(search_input)}`,{ withCredentials: true })
+            const response=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/sales/weight/${parseFloat(search_input)}`,{ withCredentials: true })
             setsales(response.data)
             
         }
@@ -52,7 +52,7 @@ const Sales = () => {
             return;
         }
         try{
-            await axios.get(`http://localhost:4444/sales/deletebyid/${parseInt(selected)}`,{ withCredentials: true })
+            await axios.get(`${import.meta.env.VITE_BACKEND_URL}/sales/deletebyid/${parseInt(selected)}`,{ withCredentials: true })
             await displaysales()
         }
         catch(err){

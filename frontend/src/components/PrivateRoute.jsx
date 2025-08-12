@@ -18,12 +18,12 @@ const PrivateRoute = ({ children }) => {
                     setIsAuthenticated(true);
                 } else {
                     setIsAuthenticated(false);
-                    navigate('/login', { replace: true });
+                    navigate('/', { replace: true });
                 }
             } catch (error) {
                 console.error('Auth check failed:', error);
                 setIsAuthenticated(false);
-                navigate('/login', { replace: true });
+                navigate('/', { replace: true });
             } finally {
                 setIsLoading(false);
             }

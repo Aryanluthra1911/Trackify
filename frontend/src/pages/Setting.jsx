@@ -20,10 +20,10 @@ const Setting = () => {
                 localStorage.clear();
                 sessionStorage.clear();
                 
-                // Navigate to login
-                navigate('/login', { replace: true });
+                // Navigate to home page instead of login
+                navigate('/', { replace: true });
                 
-                // Optional: Force page reload to clear everything
+                // Force page reload to clear everything
                 setTimeout(() => {
                     window.location.reload();
                 }, 100);
@@ -31,7 +31,7 @@ const Setting = () => {
             } else {
                 console.error('Logout failed:', response.data.message);
                 // Still redirect on failure
-                navigate('/login', { replace: true });
+                navigate('/', { replace: true });
             }
             
         } catch (error) {
@@ -42,7 +42,7 @@ const Setting = () => {
             sessionStorage.clear();
             
             // Force redirect regardless of error
-            navigate('/login', { replace: true });
+            navigate('/', { replace: true });
         }
     }
 

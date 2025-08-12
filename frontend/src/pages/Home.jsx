@@ -49,13 +49,13 @@ const Home = () => {
             
             if (response.data.status) {
                 setIsAuthenticated(false);
-                navigate('/login', { replace: true });
+                navigate('/', { replace: true });
             }
         } catch (error) {
             console.error('Logout error:', error);
             // Still logout locally even if API fails
             setIsAuthenticated(false);
-            navigate('/login', { replace: true });
+            navigate('/', { replace: true });
         }
     };
 

@@ -1,6 +1,5 @@
 import express from "express"
-import { authenticateToken, Logout } from "../controllers/authController.js";
 const router = express.Router();
 
-router.get('/logout',authenticateToken,Logout)
+// Add any settings-specific routes here if needed
 export default router

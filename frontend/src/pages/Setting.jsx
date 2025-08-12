@@ -8,7 +8,7 @@ const Setting = () => {
     
     const logout = async () => {
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/setting/logout`, {}, {
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/logout`, {}, {
                 withCredentials: true 
             });
             

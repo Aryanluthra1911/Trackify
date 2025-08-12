@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser';
 import LoginRoute from './routes/LoginRoute.js'
 import SignupRoute from './routes/SignupRoute.js'
 import SettingsRoute from './routes/SettingsRoute.js'
+import authRoute from './routes/authRoute.js'
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use('/auth', authRoute);
 app.use('/dashboard',DashboardRouter)
 app.use('/sales', salesRoute);
 app.use('/gstsales',gstsalesRoute)

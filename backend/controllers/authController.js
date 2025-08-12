@@ -42,11 +42,17 @@ export const AddAccount = async (req, res) => {
         res.cookie('token', token, {
             maxAge: 90 * 24 * 60 * 60 * 1000,
             httpOnly: true,
-            secure: true,
-            sameSite: 'none'
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
         });
 
         console.log("Generated JWT:", token);
+        console.log("Cookie settings:", {
+            maxAge: 90 * 24 * 60 * 60 * 1000,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+        });
 
         return res.json({ status: true, message: 'signup successful', token: token });
     } catch (err) {
@@ -77,11 +83,17 @@ export const Login = async (req, res) => {
         res.cookie('token', token, {
             maxAge: 90 * 24 * 60 * 60 * 1000,
             httpOnly: true,
-            secure: true,
-            sameSite: 'none'
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
         });
 
         console.log("Generated JWT:", token);
+        console.log("Cookie settings:", {
+            maxAge: 90 * 24 * 60 * 60 * 1000,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+        });
 
         return res.json({ status: true, message: 'Login successful', token: token });
 
@@ -93,6 +105,8 @@ export const Login = async (req, res) => {
 
 export const GetToken = (req, res) => {
     const token = req.cookies.token;
+    console.log('Cookies received:', req.cookies);
+    console.log('Token found:', token);
     res.json({ token: token || null });
 };
 export const Logout = async (req, res) => {

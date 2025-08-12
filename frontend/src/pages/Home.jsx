@@ -1,11 +1,64 @@
-import React from "react";
-import Navbar from "../components/Navbar";
-import Selected_input from "../components/Selected_input";
-import { redirect, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import axios from 'axios';
 
 const Home = () => {
     const navigate = useNavigate();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/gettoken`, {
+                    withCredentials: true
+                });
+                
+                if (response.data.token) {
+                    setIsAuthenticated(true);
+                } else {
+                    setIsAuthenticated(false);
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                setIsAuthenticated(false);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        checkAuth();
+    }, []);
+
+    const handleDashboardClick = () => {
+        console.log('Navigating to dashboard...');
+        navigate("/dashboard");
+    };
+
+    const handleLoginClick = () => {
+        console.log('Navigating to login...');
+        navigate("/login");
+    };
+
+    const handleLogout = async () => {
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/logout`, {}, {
+                withCredentials: true 
+            });
+            
+            if (response.data.status) {
+                setIsAuthenticated(false);
+                navigate('/login', { replace: true });
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+            // Still logout locally even if API fails
+            setIsAuthenticated(false);
+            navigate('/login', { replace: true });
+        }
+    };
+
     return (
         <div className="w-screen h-screen bg-gradient-to-br from-black via-zinc-900 to-black text-white overflow-hidden relative">
             <div className="absolute inset-0 overflow-hidden">
@@ -64,19 +117,34 @@ const Home = () => {
                     </p>
                 </div>
 
+                {/* Authentication status indicator */}
+                <div className="absolute top-20 right-8">
+                    <div className={`px-4 py-2 rounded-full backdrop-blur-sm border ${
+                        isAuthenticated 
+                            ? 'bg-green-500/10 border-green-500/30 text-green-300' 
+                            : 'bg-red-500/10 border-red-500/30 text-red-300'
+                    }`}>
+                        <span className="text-sm">
+                            {isLoading ? 'Checking...' : (isAuthenticated ? 'Authenticated' : 'Not Authenticated')}
+                        </span>
+                    </div>
+                </div>
+
                 {/* Glassy buttons with golden accents */}
                 <div className="flex gap-8 flex-wrap justify-center items-center">
-                    {/* Get Started Button */}
+                    {/* Dashboard Button */}
                     <button
-                        onClick={() => {
-                            navigate("/dashboard");
-                        }}
-                        className="group relative h-20 w-64 rounded-2xl overflow-hidden
-                                bg-black/50 backdrop-blur-2xl 
-                                border border-white/10 hover:border-amber-400/30
-                                transform hover:scale-105 hover:-translate-y-2
-                                transition-all duration-700 ease-out
-                                shadow-2xl shadow-black/50 hover:shadow-amber-500/10"
+                        onClick={handleDashboardClick}
+                        disabled={!isAuthenticated || isLoading}
+                        className={`group relative h-20 w-64 rounded-2xl overflow-hidden
+                                ${isLoading 
+                                    ? 'bg-amber-900/20 backdrop-blur-2xl border-amber-500/30 cursor-wait' 
+                                    : isAuthenticated 
+                                        ? 'bg-black/50 backdrop-blur-2xl border-white/10 hover:border-amber-400/30 hover:scale-105 hover:-translate-y-2' 
+                                        : 'bg-gray-800/50 backdrop-blur-2xl border-gray-600/30 cursor-not-allowed opacity-50'
+                                }
+                                border transform transition-all duration-700 ease-out
+                                shadow-2xl shadow-black/50 hover:shadow-amber-500/10`}
                     >
                         {/* Glass layers */}
                         <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent rounded-2xl"></div>
@@ -91,14 +159,20 @@ const Home = () => {
                         {/* Content */}
                         <div className="relative z-10 h-full flex items-center justify-center">
                             <div className="flex items-center space-x-3">
-                                {/* Get Started icon with golden accent */}
+                                {/* Dashboard icon with golden accent */}
                                 <div className="w-6 h-6 relative">
                                     <div className="absolute inset-0 border border-white/40 rounded-full"></div>
                                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full shadow-sm shadow-amber-500/30"></div>
                                     <div className="absolute top-1/2 left-1/2 transform  -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-[6px] border-l-white border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent"></div>
                                 </div>
-                                <span className="text-2xl font-light text-white group-hover:text-amber-100 transition-colors duration-300 tracking-wide">
-                                    Dashboard
+                                <span className={`text-2xl font-light transition-colors duration-300 tracking-wide ${
+                                    isLoading 
+                                        ? 'text-amber-300' 
+                                        : isAuthenticated 
+                                            ? 'text-white group-hover:text-amber-100' 
+                                            : 'text-gray-400'
+                                }`}>
+                                    {isLoading ? 'Checking...' : (isAuthenticated ? 'Dashboard' : 'Login Required')}
                                 </span>
                             </div>
                         </div>
@@ -107,26 +181,42 @@ const Home = () => {
                         <div className="absolute inset-0 rounded-2xl bg-amber-400/5 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700"></div>
                     </button>
 
-                    {/* Login Button */}
+                    {/* Login/Logout Button */}
                     <button
-                        onClick={() => {
-                            navigate("/login");
-                        }}
-                        className="group relative h-20 w-64 rounded-2xl overflow-hidden
-                                bg-gradient-to-br from-black/50 via-amber-900/10 to-black/50 backdrop-blur-2xl 
-                                border border-amber-500/20 hover:border-amber-400/40
-                                transform hover:scale-105 hover:-translate-y-2
+                        onClick={isAuthenticated ? handleLogout : handleLoginClick}
+                        className={`group relative h-20 w-64 rounded-2xl overflow-hidden
+                                ${isAuthenticated 
+                                    ? 'bg-gradient-to-br from-red-900/20 via-red-800/10 to-red-900/20 backdrop-blur-2xl border-red-500/20 hover:border-red-400/40' 
+                                    : 'bg-gradient-to-br from-black/50 via-amber-900/10 to-black/50 backdrop-blur-2xl border-amber-500/20 hover:border-amber-400/40'
+                                }
+                                border transform hover:scale-105 hover:-translate-y-2
                                 transition-all duration-700 ease-out
-                                shadow-2xl shadow-black/50 hover:shadow-amber-500/20"
+                                shadow-2xl shadow-black/50 ${
+                                    isAuthenticated 
+                                        ? 'hover:shadow-red-500/20' 
+                                        : 'hover:shadow-amber-500/20'
+                                }`}
                     >
-                        {/* Glass layers with golden tint */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-amber-400/8 to-transparent rounded-2xl"></div>
-                        <div className="absolute inset-px rounded-2xl bg-gradient-to-b from-amber-300/10 via-white/3 to-amber-500/5"></div>
+                        {/* Glass layers with conditional tint */}
+                        <div className={`absolute inset-0 bg-gradient-to-b rounded-2xl ${
+                            isAuthenticated 
+                                ? 'from-red-400/8 to-transparent' 
+                                : 'from-amber-400/8 to-transparent'
+                        }`}></div>
+                        <div className={`absolute inset-px rounded-2xl bg-gradient-to-b ${
+                            isAuthenticated 
+                                ? 'from-red-300/10 via-white/3 to-red-500/5' 
+                                : 'from-amber-300/10 via-white/3 to-amber-500/5'
+                        }`}></div>
 
-                        {/* Golden shimmer effect */}
+                        {/* Conditional shimmer effect */}
                         <div
-                            className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-300/20 to-transparent 
-                                        -translate-x-full group-hover:translate-x-full transition-transform duration-1200 ease-in-out"
+                            className={`absolute inset-0 bg-gradient-to-r from-transparent to-transparent 
+                                        -translate-x-full group-hover:translate-x-full transition-transform duration-1200 ease-in-out ${
+                                            isAuthenticated 
+                                                ? 'via-red-300/20' 
+                                                : 'via-amber-300/20'
+                                        }`}
                         ></div>
 
                         {/* Content */}
@@ -138,14 +228,22 @@ const Home = () => {
                                     <div className="absolute top-2 left-2 right-2 h-2 border border-amber-400/50 rounded-t-full"></div>
                                     <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full"></div>
                                 </div>
-                                <span className="text-2xl font-light text-amber-200 group-hover:text-amber-100 transition-colors duration-300 tracking-wide">
-                                    Login
+                                <span className={`text-2xl font-light transition-colors duration-300 tracking-wide ${
+                                    isAuthenticated 
+                                        ? 'text-red-200 group-hover:text-red-100' 
+                                        : 'text-amber-200 group-hover:text-amber-100'
+                                }`}>
+                                    {isAuthenticated ? 'Logout' : 'Login'}
                                 </span>
                             </div>
                         </div>
 
-                        {/* Enhanced golden glow */}
-                        <div className="absolute inset-0 rounded-2xl bg-amber-400/8 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700"></div>
+                        {/* Enhanced conditional glow */}
+                        <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700 ${
+                            isAuthenticated 
+                                ? 'bg-red-400/8' 
+                                : 'bg-amber-400/8'
+                        }`}></div>
                     </button>
                 </div>
 

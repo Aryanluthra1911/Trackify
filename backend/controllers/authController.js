@@ -95,7 +95,35 @@ export const GetToken = (req, res) => {
     const token = req.cookies.token;
     res.json({ token: token || null });
 };
-export const Logout = async(req,res)=>{
-    res.clearCookie("token", { httpOnly: true, sameSite: "strict" });
-    return res.json({ message: "Logged out successfully" });
+export const Logout = async (req, res) => {
+    try {
+        // Multiple approaches to clear cookie
+        res.clearCookie("token", { 
+            httpOnly: true, 
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? "none" : "lax",
+            path: "/"
+        });
+        
+        // Backup - set empty cookie
+        res.cookie('token', '', {
+            maxAge: 0,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? "none" : "lax",
+            path: "/"
+        });
+        
+        return res.json({ 
+            status: true, 
+            message: "Logged out successfully"
+        });
+        
+    } catch (error) {
+        console.error('Logout error:', error);
+        return res.status(500).json({ 
+            status: false, 
+            message: "Logout failed" 
+        });
+    }
 }

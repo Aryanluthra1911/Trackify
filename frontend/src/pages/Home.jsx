@@ -69,7 +69,7 @@ const Home = () => {
                     {/* Get Started Button */}
                     <button
                         onClick={() => {
-                            navigate("/signup");
+                            navigate("/dashboard");
                         }}
                         className="group relative h-20 w-64 rounded-2xl overflow-hidden
                                 bg-black/50 backdrop-blur-2xl 
@@ -98,7 +98,7 @@ const Home = () => {
                                     <div className="absolute top-1/2 left-1/2 transform  -translate-y-1/2 -translate-x-1 w-0 h-0 border-l-[6px] border-l-white border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent"></div>
                                 </div>
                                 <span className="text-2xl font-light text-white group-hover:text-amber-100 transition-colors duration-300 tracking-wide">
-                                    Get Started
+                                    Dashboard
                                 </span>
                             </div>
                         </div>

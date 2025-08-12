@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Selected_input from "../components/Selected_input";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 
 const Home = () => {
@@ -69,7 +69,7 @@ const Home = () => {
                     {/* Get Started Button */}
                     <button
                         onClick={() => {
-                            navigate("/dashboard");
+                            redirect("/dashboard");
                         }}
                         className="group relative h-20 w-64 rounded-2xl overflow-hidden
                                 bg-black/50 backdrop-blur-2xl 

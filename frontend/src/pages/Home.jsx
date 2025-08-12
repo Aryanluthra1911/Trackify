@@ -69,7 +69,7 @@ const Home = () => {
                     {/* Get Started Button */}
                     <button
                         onClick={() => {
-                            redirect("/dashboard");
+                            navigate("/dashboard");
                         }}
                         className="group relative h-20 w-64 rounded-2xl overflow-hidden
                                 bg-black/50 backdrop-blur-2xl 

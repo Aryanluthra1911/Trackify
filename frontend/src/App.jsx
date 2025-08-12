@@ -7,7 +7,7 @@ import GSTsales from './pages/GSTsales'
 import Custom_bill from './pages/Custom_bill'
 import Orders from './pages/Orders'
 import Login from './pages/Login'
-import Setting from './pages/Setting'
+
 import Signup from './pages/Signup'
 import PrivateRoute from './components/PrivateRoute'
 
@@ -23,7 +23,7 @@ const App  = () => {
         <Route path='/custombills' element={<PrivateRoute><Custom_bill/></PrivateRoute>}/>
         <Route path='/orders' element={<PrivateRoute><Orders/></PrivateRoute>}/>
         <Route path='/login'element={<Login/>}/>
-        <Route path='/setting'element={<PrivateRoute><Setting/></PrivateRoute>}/>
+
         <Route path='/signup' element={<Signup/>}/>
       </Routes>
     </div>

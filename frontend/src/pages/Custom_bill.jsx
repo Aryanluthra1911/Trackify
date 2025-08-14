@@ -19,6 +19,7 @@ const Custom_bill = () => {
         await axios.post(`${import.meta.env.VITE_BACKEND_URL}/custombill/addbill`,{
             cost:parseInt(cost),
             quantity:counter,
+            mop:mop
         },{ withCredentials: true })
         displaycustombill()
         setcost('')

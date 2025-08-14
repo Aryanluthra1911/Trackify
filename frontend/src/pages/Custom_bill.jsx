@@ -7,12 +7,14 @@ import Searchbar from '../components/Searchbar'
 import Custom_bill_sales from '../components/Custom_bill_sales'
 import axios from "axios"
 import Heading from '../components/Heading'
+import Selected_input from '../components/Selected_input'
 
 const Custom_bill = () => {
     const [custombill , setcustombill]=useState([])
     const [counter,setcounter] = useState(0)
     const [cost,setcost]=useState("")
     const [search_input,setsearch_input]=useState('')
+    const [mop,setmop]= useState('')
     const addcustombill = async()=>{
         await axios.post(`${import.meta.env.VITE_BACKEND_URL}/custombill/addbill`,{
             cost:parseInt(cost),
@@ -69,6 +71,7 @@ const Custom_bill = () => {
                                 setcost(e.target.value)
                             }}value={cost} label = "Cost"/>
                             <Counter counter={counter} setcounter={setcounter}/>
+                            <Selected_input label='payment' options={['',"cash","paytm"]} onChange={(e)=>{setmop(e.target.value)}}/>
                         </div>
                         <div className='h-[30%] w-full flex justify-center items-center space-x-3'>
                             <button onClick={()=>{
@@ -103,6 +106,7 @@ const Custom_bill = () => {
                             <div className='h-10 w-[97%] rounded-2xl bg-[#1a1a1a] flex justify-around items-center sticky top-0'>
                                 <Heading label={"Cost"}/>
                                 <Heading label={"Quantity"}/>
+                                <Heading label={'payment'}/>
                                 <Heading label={"Total"}/>
                             </div>
                             {custombill.map((bill,idx)=>{

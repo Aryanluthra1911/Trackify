@@ -7,6 +7,7 @@ const Custom_bill_sales = ({data}) => {
         <div className='h-10 w-[97%] bg-[#1a1a1a] shadow-[#262626] shadow-m rounded-xl flex items-center justify-around hover:border-1 hover:border-white'>
             <Heading label={`₹${data.cost}`}/>
             <Heading label={`${data.quantity}`}/>
+            <Heading label={`${data.mop}`}/>
             <Heading label={`₹${data.total}`}/>
         </div>
     )

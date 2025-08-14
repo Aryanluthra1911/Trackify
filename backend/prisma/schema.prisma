@@ -47,6 +47,7 @@ model CustomBill {
   email    String
   cost     Float
   quantity Int
+  mop      String
   total    Float    
   @@map("custombills") 
 }

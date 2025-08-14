@@ -40,12 +40,13 @@ export const DeleteBills =async(req,res)=>{
 export const AddBill = async(req,res)=>{
     try{
         const userEmail = await getEmailFromReq(req)
-        const {cost,quantity}=req.body
+        const {cost,quantity,mop}=req.body
         const newbill = await prisma.customBill.create({
             data:{
                 email:userEmail,
                 cost: parseFloat(cost),
                 quantity: parseInt(quantity),
+                mop:mop,
                 total: parseFloat(cost) * parseInt(quantity),
             }
         })

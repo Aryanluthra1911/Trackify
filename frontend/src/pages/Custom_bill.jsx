@@ -72,7 +72,6 @@ const Custom_bill = () => {
                         </div>
                         <div className='h-[30%] w-full flex justify-center items-center space-x-3'>
                             <button onClick={()=>{
-                                
                                 setcost('')
                                 setcounter(0)
                             }} className={` flex items-center justify-center h-[30%] w-[45%] bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 hover:bg-red-600 border-black  text-2xl`}> Clear Data</button>

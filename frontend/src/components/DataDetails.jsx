@@ -85,7 +85,7 @@ const DataDetails = ({setfinalcost,setgstbill,element,payment,setpayment,weighti
                     value={oldgold}
                     onChange={(e) => setoldgold(e.target.value) }
                 />
-                <Details label='Final Price: ' output={discountedCost}/>
+                <Details label='Final Price: ' output={oldgoldcost}/>
             </div>
             <div className='h-[7%] w-[90%] flex justify-evenly items-center'>
                 <button 

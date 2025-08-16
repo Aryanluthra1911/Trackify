@@ -13,7 +13,7 @@ const Sales_block = ({data,setselected,selected}) => {
                 setselected('')
             }
         }} className={`w-[97%] ${selected === data.id ?'border-2 border-sky-400' : 'hover:border-1 hover:border-white'} h-[7%] bg-[#1a1a1a] shadow-[#262626] shadow-m rounded-xl flex items-center justify-around `}>
-            <Heading label={`${data.product}`}/>
+            <Heading label={`${data.payment}`}/>
             <Heading label={`${data.weight} g`} />
             <Heading label={`${data.rate}`}/>
             <Heading label={`₹${data.labour_cost}`}/>

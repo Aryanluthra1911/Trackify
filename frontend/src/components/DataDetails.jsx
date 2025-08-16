@@ -4,7 +4,7 @@ import Input_block from './Input_block'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weightinput,setweightinput,rateinput,setrateinput,labourinput,setlabourinput}) => {
+const DataDetails = ({setfinalcost,setgstbill,element,payment,setpayment,weightinput,setweightinput,rateinput,setrateinput,labourinput,setlabourinput}) => {
     const weight = parseFloat(weightinput);
     const rate = parseFloat(rateinput)
     const labour = parseFloat(labourinput)
@@ -33,7 +33,7 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
         const formated_date = now.toLocaleDateString('en-GB');
         const formated_time = now.toLocaleTimeString('en-GB');
         await axios.post(`${import.meta.env.VITE_BACKEND_URL}/dashboard/addsales`,{
-            product:product,
+            payment:payment,
             weight:weight,
             rate:rate,
             labourcost:labourcost,
@@ -42,7 +42,7 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
             time:formated_time
         },{withCredentials:true})
         
-        setproduct('')
+        setpayment('')
         setdiscount('')
         setlabourinput('')
         setrateinput('')
@@ -63,7 +63,7 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
         <div className='w-[40%] h-[97%] ml-1 m-3 bg-gradient-to-b from-black  to-[#0d0d0d] rounded-2xl flex flex-col space-y-3 items-center'>
             <h1 className='h-[8%] w-full text-4xl flex justify-center items-center text-[#ffff] font-bold' >Rough Estimate</h1>
             <div className='h-[69%] w-[90%] space-y-3 flex flex-col justify-around '>
-                <Details label='product : ' output={product}/>
+                <Details label='Payment : ' output={payment}/>
                 <Details label='Weight : ' output={!isNaN(weight) ? weight : ''}/>
                 <Details label='Rate : 'output={!isNaN(rate) ? rate : ''}/>
                 <Details label={`${element==='gold'?'Gold Cost':'Silver Cost'}`} output={cost}/>
@@ -79,7 +79,7 @@ const DataDetails = ({setfinalcost,setgstbill,element,product,setproduct,weighti
                 <button 
                 onClick={()=>{
                     buttonclicked()
-                    setproduct('')
+                    setpayment('')
                     setdiscount('')
                     setlabourinput('')
                     setrateinput('')

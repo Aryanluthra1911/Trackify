@@ -13,7 +13,7 @@ const Dashboard = () => {
     const [weightinput,setweightinput]=useState('')
     const [rateinput,setrateinput]=useState('')
     const [labourinput,setlabourinput]=useState('')
-    const [product,setproduct] = useState('')
+    const [payment,setpayment] = useState('')
     const [finalcost, setfinalcost] = useState(0)
     const [gstbill,setgstbill] = useState(false)
     
@@ -38,8 +38,8 @@ const Dashboard = () => {
                         <DataEntry 
                         element={element}
                         setelement={setelement}
-                        product={product}
-                        setproduct={setproduct}
+                        payment={payment}
+                        setpayment={setpayment}
                         weightinput={weightinput}
                         setweightinput={setweightinput}
                         rateinput={rateinput}
@@ -51,8 +51,8 @@ const Dashboard = () => {
                         setgstbill={setgstbill}
                         element={element}
                         setelement={setelement}
-                        product={product}
-                        setproduct={setproduct}
+                        payment={payment}
+                        setpayment={setpayment}
                         weightinput={weightinput}
                         setweightinput={setweightinput}
                         rateinput={rateinput}

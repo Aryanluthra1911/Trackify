@@ -86,7 +86,7 @@ const Sales = () => {
                         </div>
                         <div className='h-[82%] w-[97%] overflow-y-auto scrollbar-thin scrollbar-track-neutral-800 scrollbar-thumb-neutral-600 space-y-3'>
                             <div className='h-10 w-[97%] rounded-2xl bg-[#1a1a1a] flex justify-around items-center sticky top-0'>
-                                <Heading label={"Product"}/>
+                                <Heading label={"Payment"}/>
                                 <Heading label={"weight"}/>
                                 <Heading label={"rate"}/>
                                 <Heading label={"labour"}/>

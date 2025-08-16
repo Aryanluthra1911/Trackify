@@ -16,7 +16,7 @@ datasource db {
 model Sales {
   id          Int      @id @default(autoincrement()) // primary key
   email       String
-  product     String
+  payment     String
   weight      Float
   rate        Float
   labour_cost Float

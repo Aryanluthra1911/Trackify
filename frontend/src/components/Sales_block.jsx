@@ -17,9 +17,10 @@ const Sales_block = ({data,setselected,selected}) => {
             <Heading label={`${data.weight} g`} />
             <Heading label={`${data.rate}`}/>
             <Heading label={`₹${data.labour_cost}`}/>
+            <Heading label={`${data.oldgoldcost}`}/>
             <Heading label={`₹${data.total}`}/>
             <Heading label={`${data.date}`}/>
-            <Heading label={`${data.time}`}/>
+            
         </div>
     )
 }

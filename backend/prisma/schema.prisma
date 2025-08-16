@@ -22,7 +22,7 @@ model Sales {
   labour_cost Float
   total       Float
   date        String
-  time        String
+  oldgoldcost String
   @@map("sales")
 }
 

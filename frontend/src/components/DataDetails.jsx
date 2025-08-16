@@ -21,25 +21,33 @@ const DataDetails = ({setfinalcost,setgstbill,element,payment,setpayment,weighti
         labourcost = Math.round(labourcost)
         totalcost=cost + labourcost  
     }
+    
+
     const [discount,setdiscount]=useState('')
     const discountedCost = useMemo(() => {
         const disc = parseFloat(discount);
         return !isNaN(disc) ? totalcost - disc : totalcost;
     }, [discount, totalcost]);
+
+    const [oldgold,setoldgold] = useState('')
+    const oldgoldcost = useMemo(()=>{
+        const cst = parseFloat(oldgold)
+        return !isNaN(cst) ? discountedCost-cst : discountedCost;
+    },[oldgold,discountedCost])
+
     const navigate =useNavigate()
 
     const addsales = async()=>{
         const now = new Date();
         const formated_date = now.toLocaleDateString('en-GB');
-        const formated_time = now.toLocaleTimeString('en-GB');
         await axios.post(`${import.meta.env.VITE_BACKEND_URL}/dashboard/addsales`,{
             payment:payment,
             weight:weight,
             rate:rate,
             labourcost:labourcost,
-            total:discountedCost,
+            oldgoldcost:oldgold,
+            total:oldgoldcost,
             date:formated_date,
-            time:formated_time
         },{withCredentials:true})
         
         setpayment('')
@@ -72,6 +80,10 @@ const DataDetails = ({setfinalcost,setgstbill,element,payment,setpayment,weighti
                 <Input_block label='Discount'
                     value={discount}
                     onChange={(e) => setdiscount(e.target.value) }
+                />
+                <Input_block label='Oldgold Cost'
+                    value={oldgold}
+                    onChange={(e) => setoldgold(e.target.value) }
                 />
                 <Details label='Final Price: ' output={discountedCost}/>
             </div>

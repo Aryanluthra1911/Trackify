@@ -90,9 +90,10 @@ const Sales = () => {
                                 <Heading label={"weight"}/>
                                 <Heading label={"rate"}/>
                                 <Heading label={"labour"}/>
+                                <Heading label={"Oldgold Cost"}/>
                                 <Heading label={"total"}/>
                                 <Heading label={"date"}/>
-                                <Heading label={"time"}/>
+                                
                             </div>
                             {sales.map((sale,idx)=>{
                                 return <Sales_block selected={selected} data={sale} key={idx} setselected={setselected} />

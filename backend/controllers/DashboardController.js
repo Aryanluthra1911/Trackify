@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 export const AddSales = async (req,res)=>{
     try{
         const userEmail = await getEmailFromReq(req)
-        const {payment,weight,rate,labourcost,total,date ,time} = req.body
+        const {payment,weight,rate,labourcost,total,date ,oldgoldcost} = req.body
         const newsales = await prisma.sales.create({
             data:{
                 email:userEmail,
@@ -15,7 +15,7 @@ export const AddSales = async (req,res)=>{
                 labour_cost:parseFloat(labourcost),
                 total:parseFloat(total),
                 date:date,
-                time:time
+                oldgoldcost:oldgoldcost
             }
         })
         res.json(newsales)

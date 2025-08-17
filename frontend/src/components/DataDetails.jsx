@@ -96,6 +96,7 @@ const DataDetails = ({setfinalcost,setgstbill,element,payment,setpayment,weighti
                     setlabourinput('')
                     setrateinput('')
                     setweightinput('')
+                    setoldgold('')
                 }}
                 className={`h-full w-[45%] ${clicked?'bg-red-500 border-2 border-amber-50': ''} hover:bg-red-500 bg-[#2D2F36] rounded-2xl text-[#ffff] border-2 border-black text-2xl`} >Clear Data</button>
                 <button onClick={async()=>{
